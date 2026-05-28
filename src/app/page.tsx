@@ -1,66 +1,48 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { Header } from "@/components/Header";
+import { KakaoContact } from "@/components/KakaoContact";
+import { categories } from "@/lib/products";
+
+const categoryKeys = ["villas", "golf", "guides", "taxi"] as const;
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <Header />
+      <main>
+        <section className="home-hero">
+          <div className="hero-copy">
+            <p>Da Nang Local Reservation Center</p>
+            <h1>다낭 여행, 현지처럼 편하게.</h1>
+            <span>
+              풀빌라, 골프, 가이드, 택시까지 필요한 일정만 골라 다낭주민쎈타에서 빠르게 상담하세요.
+            </span>
+          </div>
+          <div className="hero-actions">
+            <Link href="/villas">상품 둘러보기</Link>
+            <Link href="/reservation">예약정보 확인</Link>
+          </div>
+        </section>
+
+        <section className="category-links" aria-label="예약 카테고리">
+          {categoryKeys.map((key) => {
+            const item = categories[key];
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="category-tile"
+                style={{ backgroundImage: `linear-gradient(180deg, rgba(9, 18, 25, .14), rgba(9, 18, 25, .78)), url(${item.image})` }}
+              >
+                <p>{item.eyebrow}</p>
+                <h2>{item.label}</h2>
+                <span>{item.description}</span>
+              </Link>
+            );
+          })}
+        </section>
       </main>
-    </div>
+      <KakaoContact />
+    </>
   );
 }
