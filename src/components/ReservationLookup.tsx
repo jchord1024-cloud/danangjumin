@@ -53,7 +53,7 @@ export function ReservationLookup() {
   return (
     <div className="booking-panel">
       <form className="booking-lookup" onSubmit={lookupReservations}>
-        <div>
+        <div className="booking-lookup-head">
           <span>예약 확인</span>
           <strong>상담 시 남긴 정보로 조회합니다.</strong>
           <p>오픈채팅 예약 상담 때 알려주신 예약자명과 연락처를 입력하세요.</p>
@@ -79,7 +79,7 @@ export function ReservationLookup() {
           </label>
         </div>
         {message ? <p className="booking-message">{message}</p> : null}
-        <button type="submit" disabled={isSearching}>
+        <button className="booking-submit" type="submit" disabled={isSearching}>
           {isSearching ? "조회 중" : "예약정보 조회"}
         </button>
       </form>
