@@ -53,6 +53,7 @@ export type ReservationRow = {
 };
 
 export type ReservationPayload = {
+  user_id: string | null;
   customer_name: string;
   customer_phone: string | null;
   product_title: string | null;
@@ -60,6 +61,16 @@ export type ReservationPayload = {
   people_count: number | null;
   status: ReservationRow["status"];
   memo: string | null;
+};
+
+export type ProfileRow = {
+  id: string;
+  kakao_id: string;
+  name: string | null;
+  phone?: string | null;
+  email: string | null;
+  role?: string | null;
+  created_at: string;
 };
 
 export function getSupabaseServerClient() {

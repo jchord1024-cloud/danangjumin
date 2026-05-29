@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ReservationRow } from "@/lib/supabase";
+import type { ProfileRow, ReservationRow } from "@/lib/supabase";
 
 type FormState = {
   id?: string;
+  user_id: string;
   customer_name: string;
   customer_phone: string;
   product_title: string;
@@ -15,6 +16,7 @@ type FormState = {
 };
 
 const emptyForm: FormState = {
+  user_id: "",
   customer_name: "",
   customer_phone: "",
   product_title: "",
@@ -34,6 +36,7 @@ const statusLabels: Record<ReservationRow["status"], string> = {
 function reservationToForm(reservation: ReservationRow): FormState {
   return {
     id: reservation.id,
+    user_id: reservation.user_id || "",
     customer_name: reservation.customer_name,
     customer_phone: reservation.customer_phone || "",
     product_title: reservation.product_title || "",
@@ -45,8 +48,10 @@ function reservationToForm(reservation: ReservationRow): FormState {
 }
 
 export function AdminReservations({
+  initialProfiles,
   initialReservations,
 }: {
+  initialProfiles: ProfileRow[];
   initialReservations: ReservationRow[];
 }) {
   const [reservations, setReservations] = useState(initialReservations);
@@ -61,6 +66,23 @@ export function AdminReservations({
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
+  }
+
+  function selectProfile(profileId: string) {
+    const profile = initialProfiles.find((item) => item.id === profileId);
+
+    setForm((current) => ({
+      ...current,
+      user_id: profileId,
+      customer_name:
+        profileId && profile?.name && !current.customer_name
+          ? profile.name
+          : current.customer_name,
+      customer_phone:
+        profileId && profile?.phone && !current.customer_phone
+          ? profile.phone
+          : current.customer_phone,
+    }));
   }
 
   async function refreshReservations() {
@@ -149,6 +171,33 @@ export function AdminReservations({
           <h2>{selectedTitle}</h2>
         </div>
         <form onSubmit={submitReservation} className="admin-form">
+          <div className="admin-two-col">
+            <label>
+              카카오 고객 연결
+              <select
+                value={form.user_id}
+                onChange={(event) => selectProfile(event.target.value)}
+              >
+                <option value="">연결 안 함</option>
+                {initialProfiles.map((profile) => (
+                  <option key={profile.id} value={profile.id}>
+                    {profile.name || "이름 없음"}
+                    {profile.email ? ` / ${profile.email}` : ""}
+                    {!profile.email && profile.kakao_id
+                      ? ` / Kakao ${profile.kakao_id}`
+                      : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              연결 상태
+              <input
+                value={form.user_id ? "카카오 고객과 연결됨" : "미연결"}
+                readOnly
+              />
+            </label>
+          </div>
           <div className="admin-two-col">
             <label>
               고객명

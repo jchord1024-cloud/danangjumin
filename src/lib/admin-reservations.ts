@@ -1,5 +1,6 @@
 import {
   getSupabaseAdminClient,
+  type ProfileRow,
   type ReservationPayload,
   type ReservationRow,
 } from "@/lib/supabase";
@@ -22,6 +23,7 @@ export function parseReservationPayload(
   }
 
   return {
+    user_id: String(body.user_id || "").trim() || null,
     customer_name: customerName,
     customer_phone: String(body.customer_phone || "").trim() || null,
     product_title: String(body.product_title || "").trim() || null,
@@ -30,6 +32,25 @@ export function parseReservationPayload(
     status: status as ReservationRow["status"],
     memo: String(body.memo || "").trim() || null,
   };
+}
+
+export async function listAdminProfiles(): Promise<ProfileRow[]> {
+  const supabase = getSupabaseAdminClient();
+
+  if (!supabase) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data || []) as ProfileRow[];
 }
 
 export async function listAdminReservations(): Promise<ReservationRow[]> {

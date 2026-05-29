@@ -1,20 +1,25 @@
 import Link from "next/link";
 import { LocalDesk } from "@/components/LocalDesk";
-import { listAdminReservations } from "@/lib/admin-reservations";
+import {
+  listAdminProfiles,
+  listAdminReservations,
+} from "@/lib/admin-reservations";
 import { listAdminProducts } from "@/lib/admin-products";
-import type { ProductRow, ReservationRow } from "@/lib/supabase";
+import type { ProductRow, ProfileRow, ReservationRow } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
 export default async function LocalDeskPage() {
   let products: ProductRow[] = [];
   let reservations: ReservationRow[] = [];
+  let profiles: ProfileRow[] = [];
   let errorMessage = "";
 
   try {
-    [products, reservations] = await Promise.all([
+    [products, reservations, profiles] = await Promise.all([
       listAdminProducts(),
       listAdminReservations(),
+      listAdminProfiles(),
     ]);
   } catch (error) {
     errorMessage =
@@ -37,7 +42,11 @@ export default async function LocalDeskPage() {
           <p>{errorMessage}</p>
         </section>
       ) : (
-        <LocalDesk products={products} reservations={reservations} />
+        <LocalDesk
+          products={products}
+          reservations={reservations}
+          profiles={profiles}
+        />
       )}
     </main>
   );
