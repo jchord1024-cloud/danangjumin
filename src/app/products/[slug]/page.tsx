@@ -22,11 +22,35 @@ export default async function ProductDetailPage({
   }
 
   const category = categories[product.category];
-  const [primaryHighlight, ...secondaryHighlights] = product.highlights;
+  const [primaryHighlight] = product.highlights;
   const galleryImages =
     product.galleryImages && product.galleryImages.length > 0
       ? product.galleryImages
       : [product.image].filter(Boolean);
+  const bookingSteps = [
+    {
+      title: "예약 날짜 확인",
+      description: "원하시는 이용 날짜와 인원 가능 여부를 먼저 확인해주세요.",
+    },
+    {
+      title: "카카오톡 상담",
+      description: "인원, 일정, 옵션 서비스를 알려주시면 맞춤형으로 안내드립니다.",
+    },
+    {
+      title: "최종 정보 확정",
+      description: "날짜, 인원, 요금, 포함사항을 함께 확인한 뒤 예약 내용을 확정합니다.",
+    },
+    {
+      title: "예약정보 확인",
+      description: "확정된 예약은 예약정보 페이지에서 예약자명과 연락처로 확인할 수 있습니다.",
+    },
+  ];
+  const featureItems = [...product.highlights, ...product.includes].slice(0, 8);
+  const benefitItems = [
+    "카카오톡 빠른 상담",
+    "일정과 인원에 맞춘 현지 안내",
+    "예약 확정 후 정보 페이지 제공",
+  ];
 
   return (
     <>
@@ -113,31 +137,57 @@ export default async function ProductDetailPage({
           </section>
         ) : null}
 
-        <section className="detail-feature-section">
-          <div className="section detail-feature-inner">
-            <div className="section-head">
-              <p>Stay Points</p>
-              <h2>예약 전 확인할 핵심 포인트</h2>
-              <span>상품 선택부터 현지 이용까지 필요한 내용을 간단하게 정리했습니다.</span>
-            </div>
-            <div className="detail-feature-grid">
-              {secondaryHighlights.map((item, index) => (
-                <article key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+        <section className="detail-card-section">
+          <div className="detail-card-head">
+            <p>Why This Choice</p>
+            <h2>이 상품의 매력 포인트</h2>
+            <span>{product.summary}</span>
+          </div>
+          <div className="detail-soft-list">
+            {featureItems.slice(0, 3).map((item, index) => (
+              <article key={item} className="detail-soft-card">
+                <span className="detail-icon">{["🌴", "🌊", "✨"][index] || "✓"}</span>
+                <div>
                   <strong>{item}</strong>
-                  <p>
-                    상담 시 세부 조건을 확인해 일정에 맞는 옵션으로 안내해드립니다.
-                  </p>
-                </article>
-              ))}
-              {product.includes.map((item, index) => (
-                <article key={item}>
-                  <span>{String(index + secondaryHighlights.length + 1).padStart(2, "0")}</span>
-                  <strong>{item}</strong>
-                  <p>예약 진행 전 포함 여부와 이용 조건을 다시 한번 확인합니다.</p>
-                </article>
-              ))}
-            </div>
+                  <p>상담 시 세부 조건과 이용 가능 여부를 함께 확인해드립니다.</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="detail-card-section">
+          <div className="detail-card-head">
+            <p>Features</p>
+            <h2>포함 및 안내</h2>
+            <span>예약 전 확인하면 좋은 핵심 항목입니다.</span>
+          </div>
+          <div className="detail-check-list">
+            {featureItems.map((item) => (
+              <div key={item}>
+                <span>✅</span>
+                <strong>{item}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="detail-card-section">
+          <div className="detail-card-head">
+            <p>Reservation Guide</p>
+            <h2>예약 방법 안내</h2>
+            <span>아래 순서대로 진행해주시면 빠르게 예약을 도와드립니다.</span>
+          </div>
+          <div className="detail-step-list">
+            {bookingSteps.map((step, index) => (
+              <article key={step.title}>
+                <span>{index + 1}</span>
+                <div>
+                  <strong>{step.title}</strong>
+                  <p>{step.description}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -174,12 +224,30 @@ export default async function ProductDetailPage({
           </div>
         </section>
 
-        <section className="detail-notice section">
-          <div>
-            <p>Before Booking</p>
-            <h2>예약 전 확인</h2>
+        <section className="detail-card-section">
+          <div className="detail-card-head">
+            <p>Notice</p>
+            <h2>예약 전 꼭 확인해주세요</h2>
+            <span>보다 편하고 안전한 이용을 위해 아래 내용을 확인해주세요.</span>
           </div>
-          <span>{product.notice}</span>
+          <div className="detail-soft-list">
+            <article className="detail-soft-card">
+              <span className="detail-icon">📌</span>
+              <div>
+                <strong>예약 가능 여부 확인</strong>
+                <p>{product.notice}</p>
+              </div>
+            </article>
+            {benefitItems.map((item, index) => (
+              <article key={item} className="detail-soft-card">
+                <span className="detail-icon">{["💬", "🧭", "🎁"][index]}</span>
+                <div>
+                  <strong>{item}</strong>
+                  <p>예약 확정 전 필요한 내용을 카카오톡으로 다시 안내드립니다.</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
       </main>
       <KakaoContact />
