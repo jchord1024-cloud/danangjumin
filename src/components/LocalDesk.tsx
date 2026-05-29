@@ -3,16 +3,14 @@
 import { useState } from "react";
 import { AdminProducts } from "@/components/AdminProducts";
 import { AdminReservations } from "@/components/AdminReservations";
-import type { ProductRow, ProfileRow, ReservationRow } from "@/lib/supabase";
+import type { ProductRow, ReservationRow } from "@/lib/supabase";
 
 export function LocalDesk({
   products,
   reservations,
-  profiles,
 }: {
   products: ProductRow[];
   reservations: ReservationRow[];
-  profiles: ProfileRow[];
 }) {
   const [tab, setTab] = useState<"products" | "reservations">("products");
 
@@ -37,10 +35,7 @@ export function LocalDesk({
       {tab === "products" ? (
         <AdminProducts initialProducts={products} />
       ) : (
-        <AdminReservations
-          initialProfiles={profiles}
-          initialReservations={reservations}
-        />
+        <AdminReservations initialReservations={reservations} />
       )}
     </>
   );

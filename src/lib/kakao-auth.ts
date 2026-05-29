@@ -1,8 +1,5 @@
 import { createHmac, timingSafeEqual } from "crypto";
-import {
-  getSupabaseAdminClient,
-  type ReservationRow,
-} from "@/lib/supabase";
+import { getSupabaseAdminClient } from "@/lib/supabase";
 
 export const kakaoSessionCookieName = "danang_kakao_session";
 
@@ -176,28 +173,3 @@ export async function upsertKakaoProfile(user: KakaoUser) {
   return data?.id ? String(data.id) : null;
 }
 
-export async function listReservationsForSession(
-  session: KakaoSession | null,
-): Promise<ReservationRow[]> {
-  if (!session?.profileId) {
-    return [];
-  }
-
-  const supabase = getSupabaseAdminClient();
-
-  if (!supabase) {
-    return [];
-  }
-
-  const { data, error } = await supabase
-    .from("reservations")
-    .select("*")
-    .eq("user_id", session.profileId)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    return [];
-  }
-
-  return (data || []) as ReservationRow[];
-}

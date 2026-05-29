@@ -1,25 +1,17 @@
 import { cookies } from "next/headers";
 import { Header } from "@/components/Header";
 import { KakaoContact } from "@/components/KakaoContact";
+import { ReservationLookup } from "@/components/ReservationLookup";
 import {
   kakaoSessionCookieName,
-  listReservationsForSession,
   readKakaoSessionCookie,
 } from "@/lib/kakao-auth";
-
-const statusLabels = {
-  pending: "문의중",
-  confirmed: "확정",
-  done: "완료",
-  cancelled: "취소",
-};
 
 export default async function ReservationPage() {
   const cookieStore = await cookies();
   const session = readKakaoSessionCookie(
     cookieStore.get(kakaoSessionCookieName)?.value,
   );
-  const reservations = await listReservationsForSession(session);
 
   return (
     <>
@@ -30,7 +22,7 @@ export default async function ReservationPage() {
             <p>My Booking</p>
             <h1>예약정보</h1>
             <span>
-              카카오 로그인 후 본인 예약 내역을 확인하는 화면입니다. 예약 확정 후 관리 데스크에 등록된 내역이 표시됩니다.
+              카카오 로그인 후 오픈채팅 상담 시 남긴 예약자명과 연락처로 예약 내역을 확인합니다.
             </span>
           </div>
           {session ? (
@@ -43,47 +35,7 @@ export default async function ReservationPage() {
                 </div>
                 <a href="/api/auth/logout">로그아웃</a>
               </div>
-              {reservations.length > 0 ? (
-                <div className="booking-list">
-                  {reservations.map((reservation) => (
-                    <article key={reservation.id} className="booking-card">
-                      <div>
-                        <span>{statusLabels[reservation.status]}</span>
-                        <strong>
-                          {reservation.product_title || "상담 예약"}
-                        </strong>
-                        <p>{reservation.memo || "상세 안내는 카카오톡으로 전달됩니다."}</p>
-                      </div>
-                      <dl>
-                        <div>
-                          <dt>예약자</dt>
-                          <dd>{reservation.customer_name}</dd>
-                        </div>
-                        <div>
-                          <dt>날짜</dt>
-                          <dd>{reservation.travel_date || "조율 중"}</dd>
-                        </div>
-                        <div>
-                          <dt>인원</dt>
-                          <dd>
-                            {reservation.people_count
-                              ? `${reservation.people_count}명`
-                              : "확인 중"}
-                          </dd>
-                        </div>
-                      </dl>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <div className="empty-booking">
-                  <strong>아직 표시할 예약 내역이 없습니다.</strong>
-                  <p>
-                    상담을 통해 예약이 확정되면 상품명, 날짜, 인원, 픽업
-                    정보가 이곳에 정리됩니다.
-                  </p>
-                </div>
-              )}
+              <ReservationLookup />
             </div>
           ) : (
             <div className="empty-booking">

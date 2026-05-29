@@ -53,7 +53,6 @@ export type ReservationRow = {
 };
 
 export type ReservationPayload = {
-  user_id: string | null;
   customer_name: string;
   customer_phone: string | null;
   product_title: string | null;
