@@ -2,6 +2,11 @@ import Link from "next/link";
 import { LocalDesk } from "@/components/LocalDesk";
 import { listAdminReservations } from "@/lib/admin-reservations";
 import { listAdminProducts } from "@/lib/admin-products";
+import {
+  defaultHomeHeroSettings,
+  getHomeHeroSettings,
+  type HomeHeroSettings,
+} from "@/lib/site-settings";
 import type { ProductRow, ReservationRow } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -9,12 +14,14 @@ export const dynamic = "force-dynamic";
 export default async function LocalDeskPage() {
   let products: ProductRow[] = [];
   let reservations: ReservationRow[] = [];
+  let homeHeroSettings: HomeHeroSettings = defaultHomeHeroSettings;
   let errorMessage = "";
 
   try {
-    [products, reservations] = await Promise.all([
+    [products, reservations, homeHeroSettings] = await Promise.all([
       listAdminProducts(),
       listAdminReservations(),
+      getHomeHeroSettings(),
     ]);
   } catch (error) {
     errorMessage =
@@ -37,7 +44,11 @@ export default async function LocalDeskPage() {
           <p>{errorMessage}</p>
         </section>
       ) : (
-        <LocalDesk products={products} reservations={reservations} />
+        <LocalDesk
+          homeHeroSettings={homeHeroSettings}
+          products={products}
+          reservations={reservations}
+        />
       )}
     </main>
   );

@@ -9,9 +9,9 @@ const menu = [
   { href: "/reservation", label: "예약정보" },
 ];
 
-export function Header() {
+export function Header({ overlay = false }: { overlay?: boolean }) {
   return (
-    <header className="site-header">
+    <header className={overlay ? "site-header overlay" : "site-header"}>
       <Link href="/" className="brand" aria-label="홈으로 이동">
         <span>Joomin CCenter</span>
         <strong>다낭주민쎈타</strong>

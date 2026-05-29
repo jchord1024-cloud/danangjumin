@@ -133,6 +133,17 @@ alter table products
 add column if not exists gallery_images text[] default '{}';
 ```
 
+홈 화면 배경 슬라이드와 문구를 관리자에서 수정하려면 아래 설정 테이블을 추가합니다.
+
+```sql
+create table if not exists site_settings (
+  key text primary key,
+  value jsonb not null,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+```
+
 ## 새 컴퓨터에서 이어서 작업하는 법
 
 1. GitHub 저장소를 clone 또는 download

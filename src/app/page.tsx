@@ -1,27 +1,23 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { HomeHero } from "@/components/HomeHero";
 import { KakaoContact } from "@/components/KakaoContact";
+import { getHomeHeroSettings } from "@/lib/site-settings";
 import { categories } from "@/lib/products";
 
 const categoryKeys = ["villas", "golf", "guides", "taxi"] as const;
 
-export default function Home() {
+export default async function Home() {
+  const homeHeroSettings = await getHomeHeroSettings();
+
   return (
     <>
-      <Header />
+      <Header overlay />
       <main>
-        <section className="home-hero">
-          <div className="hero-copy">
-            <p>Da Nang Local Reservation Center</p>
-            <h1>다낭 여행, 현지처럼 편하게.</h1>
-            <span>
-              풀빌라, 골프, 가이드, 택시까지 필요한 일정만 골라 다낭주민쎈타에서 빠르게 상담하세요.
-            </span>
-          </div>
-          <div className="hero-actions">
-            <Link href="/villas">상품 둘러보기</Link>
-            <Link href="/reservation">예약정보 확인</Link>
-          </div>
+        <HomeHero settings={homeHeroSettings} />
+
+        <section className="home-middle-copy">
+          <p>{homeHeroSettings.middleText}</p>
         </section>
 
         <section className="category-links" aria-label="예약 카테고리">

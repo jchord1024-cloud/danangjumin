@@ -18,11 +18,11 @@ export async function POST(request: NextRequest) {
     const file = formData.get("file");
 
     if (!(file instanceof File)) {
-      throw new Error("업로드할 이미지를 선택하세요.");
+      throw new Error("업로드할 파일을 선택하세요.");
     }
 
-    if (!file.type.startsWith("image/")) {
-      throw new Error("이미지 파일만 업로드할 수 있습니다.");
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+      throw new Error("이미지 또는 동영상 파일만 업로드할 수 있습니다.");
     }
 
     const extension = getExtension(file.name);
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         ok: false,
-        message: error instanceof Error ? error.message : "이미지 업로드 실패",
+        message: error instanceof Error ? error.message : "파일 업로드 실패",
       },
       { status: 400 },
     );
