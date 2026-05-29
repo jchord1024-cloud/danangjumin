@@ -132,11 +132,11 @@ a {
 
 .home-hero {
   position: relative;
-  min-height: 720px;
+  min-height: 820px;
   display: grid;
   align-content: end;
   gap: 28px;
-  padding: 154px 40px 110px;
+  padding: 176px 40px 136px;
   overflow: hidden;
   color: var(--white);
 }
@@ -170,8 +170,8 @@ a {
 .home-hero-shade {
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(10, 18, 24, 0.72), rgba(10, 18, 24, 0.1)),
-    linear-gradient(180deg, rgba(10, 18, 24, 0.12), rgba(10, 18, 24, 0.52));
+    linear-gradient(90deg, rgba(10, 18, 24, 0.52), rgba(10, 18, 24, 0.04)),
+    linear-gradient(180deg, rgba(10, 18, 24, 0.04), rgba(10, 18, 24, 0.34));
 }
 
 .home-hero-controls {
@@ -301,7 +301,7 @@ a {
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  padding: 86px 0 70px;
+  padding: 118px 0 86px;
   text-align: center;
 }
 
@@ -1543,8 +1543,8 @@ a {
   }
 
   .home-hero {
-    min-height: 660px;
-    padding: 138px 20px 78px;
+    min-height: 760px;
+    padding: 150px 20px 106px;
   }
 
   .hero-copy h1 {
@@ -1583,7 +1583,7 @@ a {
   .home-middle-copy {
     width: calc(100% - 28px);
     margin-top: 0;
-    padding: 58px 0 42px;
+    padding: 78px 0 56px;
   }
 
   .home-hero-controls {
