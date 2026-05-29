@@ -78,11 +78,6 @@ export function HomeHero({ settings }: { settings: HomeHeroSettings }) {
           </div>
         </div>
       ) : null}
-      <div className="hero-copy">
-        <p>{settings.eyebrow}</p>
-        <h1>{settings.title}</h1>
-        <span>{settings.description}</span>
-      </div>
     </section>
   );
 }

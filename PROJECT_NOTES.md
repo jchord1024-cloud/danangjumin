@@ -40,8 +40,10 @@ npm.cmd run build
 - 홈 메인 히어로는 데스크톱 기준 `820px`, 모바일 기준 `760px`
 - 홈 메인 이미지/동영상은 `brightness(1.12)`와 약한 오버레이로 밝게 표시
 - 홈 메인 이미지 위의 `상품 둘러보기`, `예약정보 확인` 버튼은 제거됨
-- 카테고리 위 중간 문구 기능은 삭제됨
-  - 로컬 확인 기준 `.home-middle-copy` 섹션과 예전 문구 텍스트는 렌더링되지 않음
+- 홈 메인 이미지 위 제목/설명 텍스트는 렌더링하지 않음
+- 카테고리 위 중간 붓글씨 문구는 사용함
+  - 로컬 확인 기준 `.home-hero .hero-copy` 없음
+  - 로컬 확인 기준 `.home-middle-copy` 있음
 - 홈 카테고리 4개 카드 구현 완료: 풀빌라, 골프, 가이드, 택시
 - 상품 목록/상세 페이지 구현 완료
 - 상품 상세 페이지는 대표 이미지, 상세 갤러리, 요약 정보, 안내 섹션 포함
@@ -61,11 +63,10 @@ npm.cmd run build
   - 홈 메인 CTA 버튼 2개 제거
 
 - 이후 추가 수정
-  - 카테고리 위 중간 문구 기능 자체 삭제
-  - 관리자 홈 설정에서 중간 문구 입력칸 제거
-  - 홈 페이지에서 중간 문구 렌더링 제거
-  - `HomeHeroSettings`와 저장 API에서 `middleText` 제거
-  - 중간 문구 전용 CSS 및 Google brush font import 제거
+  - 메인 이미지 위 제목/설명 텍스트 제거
+  - 카테고리 위 중간 붓글씨 문구와 관리자 입력칸 복구
+  - `HomeHeroSettings`와 저장 API에 `middleText` 유지
+  - 중간 문구 전용 CSS 및 Google brush font import 유지
 
 - `0e90ca8 Brighten and extend home hero`
   - 메인 이미지/동영상 프레임 높이를 데스크톱 `820px`, 모바일 `760px`로 확대
@@ -95,7 +96,7 @@ npm.cmd run build
 
 - `src/app/page.tsx`
   - 홈 페이지
-  - `HomeHero`와 카테고리 카드 4개 렌더링
+  - `HomeHero`, 중간 붓글씨 문구, 카테고리 카드 4개 렌더링
 
 - `src/components/HomeHero.tsx`
   - 홈 메인 히어로 슬라이더
@@ -104,7 +105,7 @@ npm.cmd run build
 
 - `src/components/AdminHomeSettings.tsx`
   - 관리자 홈 화면 설정 폼
-  - 히어로 문구, 슬라이드 URL, 이미지/영상 업로드, 슬라이드 시간 관리
+  - 히어로 문구, 중간 문구, 슬라이드 URL, 이미지/영상 업로드, 슬라이드 시간 관리
 
 - `src/lib/site-settings.ts`
   - 홈 화면 설정 타입과 기본값
@@ -116,7 +117,7 @@ npm.cmd run build
 
 - `src/app/globals.css`
   - 전체 CSS
-  - 홈 히어로, 카테고리 카드, 상세 페이지, 관리자 화면 스타일 포함
+  - 홈 히어로, 중간 붓글씨 문구, 카테고리 카드, 상세 페이지, 관리자 화면 스타일 포함
 
 - `src/components/LocalDesk.tsx`
   - 관리자 화면 탭 구성
@@ -206,6 +207,7 @@ add column if not exists gallery_images text[] default '{}';
   "eyebrow": "Da Nang Local Reservation Center",
   "title": "다낭 여행, 현지처럼 편하게.",
   "description": "풀빌라, 골프, 가이드, 택시까지 필요한 일정만 골라 다낭주민센터에서 빠르게 상담하세요.",
+  "middleText": "다낭의 하루를 더 편하게, 현지 감각으로 예약하세요.",
   "slideDurationMs": 2000,
   "mediaItems": [
     {
@@ -216,13 +218,12 @@ add column if not exists gallery_images text[] default '{}';
 }
 ```
 
-이전 버전에 저장된 `middleText`가 DB에 남아 있어도 현재 코드는 사용하지 않습니다.
-
 ## 디자인 결정사항
 
 - 홈 메인 이미지는 기존보다 밝게 처리
 - 홈 메인 동영상도 어둡지 않게 오버레이를 약하게 유지
-- 카테고리 위 중간 문구는 사용하지 않음
+- 홈 메인 이미지 위에는 제목/설명/CTA 버튼을 올리지 않음
+- 카테고리 위 중간 문구는 붓글씨 느낌으로 사용
 - 카드 UI는 과도하게 둥글지 않게 8px radius 기준
 - 카테고리 카드 이미지는 텍스트 가독성을 위해 약한 어두운 그라데이션만 유지
 - 전체 사이트는 여행 예약몰 느낌이 나도록 이미지 중심으로 구성
@@ -240,7 +241,7 @@ add column if not exists gallery_images text[] default '{}';
 ## 다음 작업 후보
 
 - 실제 운영 도메인에서 Vercel 배포 완료 여부 확인
-- 모바일 홈 화면에서 히어로와 카드 간격 재확인
+- 모바일 홈 화면에서 히어로, 중간 문구, 카드 간격 재확인
 - 관리자 홈 설정에서 슬라이드 시간 저장 후 운영 DB에 정상 반영되는지 확인
 - 상품/예약 Supabase 데이터 정리
 - 카카오 로그인 운영 redirect URI 최종 확인

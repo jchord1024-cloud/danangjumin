@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap");
+
 :root {
   --ink: #101820;
   --muted: #66717a;
@@ -295,11 +297,28 @@ a {
   margin: 0 auto;
 }
 
+.home-middle-copy {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  padding: 118px 0 86px;
+  text-align: center;
+}
+
+.home-middle-copy p {
+  color: var(--ink);
+  font-family: "Nanum Brush Script", var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(38px, 5vw, 66px);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
 .category-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  padding: 86px 0 92px;
+  padding: 0 0 92px;
 }
 
 .category-tile {
@@ -1560,6 +1579,11 @@ a {
     transform: none;
     padding-top: 0;
     padding-bottom: 56px;
+  }
+
+  .home-middle-copy {
+    width: calc(100% - 28px);
+    padding: 78px 0 56px;
   }
 
   .home-hero-controls {

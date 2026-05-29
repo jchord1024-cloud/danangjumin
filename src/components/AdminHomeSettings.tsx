@@ -146,6 +146,13 @@ export function AdminHomeSettings({
             />
           </label>
           <label>
+            카테고리 위 중간 문구
+            <input
+              value={form.middleText}
+              onChange={(event) => updateField("middleText", event.target.value)}
+            />
+          </label>
+          <label>
             슬라이드 전환 시간(초)
             <input
               type="number"
