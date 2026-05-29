@@ -5,7 +5,6 @@ export type HomeHeroSettings = {
   title: string;
   description: string;
   mediaItems: HomeHeroMediaItem[];
-  middleText: string;
   slideDurationMs: number;
 };
 
@@ -27,7 +26,6 @@ export const defaultHomeHeroSettings: HomeHeroSettings = {
       type: "image",
     },
   ],
-  middleText: "다낭의 하루를 더 편하게, 현지 감각으로 예약하세요.",
   slideDurationMs: 2000,
 };
 
@@ -70,10 +68,6 @@ function parseHomeHeroSettings(value: unknown): HomeHeroSettings {
     title: record.title || defaultHomeHeroSettings.title,
     description: record.description || defaultHomeHeroSettings.description,
     mediaItems: parseMediaItems(record),
-    middleText:
-      typeof record.middleText === "string"
-        ? record.middleText
-        : defaultHomeHeroSettings.middleText,
     slideDurationMs:
       Number.isFinite(slideDurationMs) && slideDurationMs >= 1000
         ? Math.min(slideDurationMs, 30000)

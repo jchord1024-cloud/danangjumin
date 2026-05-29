@@ -1,24 +1,24 @@
 # 다낭주민센터 프로젝트 노트
 
-이 문서는 PC를 바꾸거나 새 Codex 대화에서 이어서 작업할 때 먼저 읽기 위한 인수인계 문서입니다. 새 환경에서는 이 파일을 먼저 읽고 현재 구조와 최근 변경사항을 파악하세요.
+새 PC나 새 Codex 대화에서 이어서 작업할 때 먼저 읽는 인수인계 문서입니다.
 
 ## 프로젝트 개요
 
 - 프로젝트명: `prime-reservation`
 - 서비스명: 다낭주민센터
 - 사이트: `danangjumin.com`
-- 저장소 브랜치: `main`
+- 브랜치: `main`
 - 프레임워크: Next.js App Router
-- 주요 목적: 다낭 여행 예약몰. 풀빌라, 골프, 가이드, 택시 상품을 보여주고 카카오톡 문의 및 예약조회/관리 기능을 제공.
+- 목적: 다낭 여행 예약몰. 풀빌라, 골프, 가이드, 택시 상품을 보여주고 카카오톡 문의 및 예약조회/관리 기능을 제공.
 
-## 실행 방법
+## 실행
 
 ```bash
 npm install
 npm.cmd run dev
 ```
 
-로컬 확인 URL:
+로컬 URL:
 
 ```text
 http://127.0.0.1:3000
@@ -30,23 +30,21 @@ http://127.0.0.1:3000
 npm.cmd run build
 ```
 
-배포는 `main` 브랜치에 push하면 Vercel이 자동 배포하는 흐름으로 사용 중입니다.
+`main`에 push하면 Vercel 자동 배포가 진행됩니다.
 
 ## 현재 구현 상태
 
 - 홈 화면 구현 완료
-- 홈 메인 히어로 이미지/영상 슬라이더 구현 완료
-- 홈 히어로 문구, 중간 문구, 슬라이드 이미지/영상, 슬라이드 전환 시간을 관리자 화면에서 수정 가능
-- 홈 중간 문구는 흰 배경 위에 박히는 형태로 배치
-- 홈 중간 문구 글씨체는 붓글씨 느낌의 `Nanum Brush Script` 적용
-- 관리자 홈 설정에서 중간 문구를 빈 값으로 저장하면 기본 문구가 다시 생기지 않고, 홈에서는 해당 영역을 숨김
-- 홈 메인 히어로는 데스크톱 기준 `820px`, 모바일 기준 `760px` 높이로 넉넉하게 설정
+- 홈 메인 히어로 이미지/동영상 슬라이더 구현 완료
+- 홈 히어로 문구, 슬라이드 이미지/동영상, 슬라이드 전환 시간을 관리자 화면에서 수정 가능
+- 홈 메인 히어로는 데스크톱 기준 `820px`, 모바일 기준 `760px`
 - 홈 메인 이미지/동영상 오버레이는 밝게 보이도록 약하게 유지
 - 홈 메인 이미지 위의 `상품 둘러보기`, `예약정보 확인` 버튼은 제거됨
+- 카테고리 위 중간 문구 기능은 삭제됨
 - 홈 카테고리 4개 카드 구현 완료: 풀빌라, 골프, 가이드, 택시
 - 상품 목록/상세 페이지 구현 완료
 - 상품 상세 페이지는 대표 이미지, 상세 갤러리, 요약 정보, 안내 섹션 포함
-- 상품 데이터는 Supabase DB와 연결 가능하며, fallback 데이터는 `src/lib/products.ts`에 있음
+- 상품 데이터는 Supabase DB와 연결 가능하며 fallback 데이터는 `src/lib/products.ts`에 있음
 - 상품 이미지 업로드는 Supabase Storage `product-images` public bucket 사용
 - 관리자 화면 경로: `/local-desk`
 - 관리자 화면은 `ADMIN_USERNAME`, `ADMIN_PASSWORD` 환경변수 기반 Basic Auth로 보호
@@ -57,31 +55,25 @@ npm.cmd run build
 
 ## 최근 작업 내역
 
-최근 커밋 기준:
+- `e2917dc Allow empty home message`
+  - 관리자 홈 설정 중간 문구 빈 값 처리 시도
+  - 홈 메인 CTA 버튼 2개 제거
+
+- 이후 추가 수정
+  - 카테고리 위 중간 문구 기능 자체 삭제
+  - 관리자 홈 설정에서 중간 문구 입력칸 제거
+  - 홈 페이지에서 중간 문구 렌더링 제거
+  - `HomeHeroSettings`와 저장 API에서 `middleText` 제거
+  - 중간 문구 전용 CSS 및 Google brush font import 제거
+
+- `0e90ca8 Brighten and extend home hero`
+  - 메인 이미지/동영상 프레임 높이를 데스크톱 `820px`, 모바일 `760px`로 확대
+  - 히어로 하단 여백을 늘려 아래 카드 영역을 더 아래로 이동
+  - 홈 이미지/동영상 오버레이를 더 약하게 조정해서 밝게 표시
 
 - `5a87e08 Add brush style home message`
-  - 홈 중간 문구에 붓글씨 느낌 폰트 적용
-  - `Nanum Brush Script` Google Font import 추가
-  - 중간 문구 크기와 줄간격 조정
-
-- 이후 홈 히어로 추가 조정
-  - 메인 이미지/동영상 프레임 높이를 데스크톱 `820px`, 모바일 `760px`로 확대
-  - 히어로 하단 여백을 늘려 아래 텍스트와 카드 영역을 더 아래로 이동
-  - 홈 이미지/동영상 오버레이를 더 약하게 조정해서 밝게 표시
-  - 관리자에서 카테고리 위 중간 문구를 삭제 저장하면 빈 값이 유지되도록 수정
-  - 홈 메인 이미지 위 CTA 버튼 2개 제거
-
-- `ff5371d Polish home hero spacing`
-  - 홈 중간 문구 뒤 네모 박스, 테두리, 그림자 제거
-  - 중간 문구가 흰 배경 영역에 자연스럽게 들어가도록 변경
-  - 메인 이미지 아래에서 텍스트까지 약 86px, 텍스트 아래에서 카드까지 약 70px 여백 확인
-  - 홈 이미지 어두운 오버레이 완화
-  - 카테고리 카드 이미지 오버레이 완화
-  - 슬라이드 전환 기본값을 2초로 변경
-  - 관리자 홈 설정에 `슬라이드 전환 시간(초)` 입력 추가
-
-- `fddebe8 Fix home hero settings persistence`
-  - 홈 히어로 설정 저장/조회 관련 수정
+  - 예전 중간 문구 붓글씨 폰트 적용 작업
+  - 현재는 중간 문구 기능 삭제로 더 이상 사용하지 않음
 
 - `70c22e8 Add home slider controls`
   - 홈 슬라이더 이전/다음 버튼 및 점 표시 추가
@@ -102,8 +94,7 @@ npm.cmd run build
 
 - `src/app/page.tsx`
   - 홈 페이지
-  - `HomeHero` 렌더링
-  - 홈 중간 문구와 카테고리 4개 카드 렌더링
+  - `HomeHero`와 카테고리 카드 4개 렌더링
 
 - `src/components/HomeHero.tsx`
   - 홈 메인 히어로 슬라이더
@@ -112,7 +103,7 @@ npm.cmd run build
 
 - `src/components/AdminHomeSettings.tsx`
   - 관리자 홈 화면 설정 폼
-  - 히어로 문구, 중간 문구, 슬라이드 URL, 이미지/영상 업로드, 슬라이드 시간 관리
+  - 히어로 문구, 슬라이드 URL, 이미지/영상 업로드, 슬라이드 시간 관리
 
 - `src/lib/site-settings.ts`
   - 홈 화면 설정 타입과 기본값
@@ -124,7 +115,7 @@ npm.cmd run build
 
 - `src/app/globals.css`
   - 전체 CSS
-  - 홈 히어로, 중간 문구, 카테고리 카드, 상세 페이지, 관리자 화면 스타일 포함
+  - 홈 히어로, 카테고리 카드, 상세 페이지, 관리자 화면 스타일 포함
 
 - `src/components/LocalDesk.tsx`
   - 관리자 화면 탭 구성
@@ -181,7 +172,7 @@ ADMIN_USERNAME=kimjun5027
 ADMIN_PASSWORD=your_admin_password
 ```
 
-배포 환경에서는 `KAKAO_REDIRECT_URI`를 운영 도메인 콜백 주소로 설정해야 합니다.
+운영 환경에서는 `KAKAO_REDIRECT_URI`를 아래처럼 설정합니다.
 
 ```text
 https://danangjumin.com/api/auth/kakao/callback
@@ -189,7 +180,7 @@ https://danangjumin.com/api/auth/kakao/callback
 
 ## Supabase 메모
 
-홈 화면 설정용 테이블:
+홈 화면 설정 테이블:
 
 ```sql
 create table if not exists site_settings (
@@ -200,21 +191,20 @@ create table if not exists site_settings (
 );
 ```
 
-상품 상세 갤러리용 컬럼:
+상품 상세 갤러리 컬럼:
 
 ```sql
 alter table products
 add column if not exists gallery_images text[] default '{}';
 ```
 
-홈 히어로 설정은 `site_settings` 테이블의 `key = 'home_hero'` 값에 JSON으로 저장됩니다. 현재 구조는 대략 아래 형태입니다.
+홈 히어로 설정은 `site_settings` 테이블의 `key = 'home_hero'` 값에 JSON으로 저장됩니다. 현재 구조는 아래 형태입니다.
 
 ```json
 {
   "eyebrow": "Da Nang Local Reservation Center",
   "title": "다낭 여행, 현지처럼 편하게.",
   "description": "풀빌라, 골프, 가이드, 택시까지 필요한 일정만 골라 다낭주민센터에서 빠르게 상담하세요.",
-  "middleText": "다낭의 하루를 더 편하게, 현지 감각으로 예약하세요.",
   "slideDurationMs": 2000,
   "mediaItems": [
     {
@@ -225,12 +215,13 @@ add column if not exists gallery_images text[] default '{}';
 }
 ```
 
-## 디자인 관련 현재 결정사항
+이전 버전에 저장된 `middleText`가 DB에 남아 있어도 현재 코드는 사용하지 않습니다.
 
-- 홈 메인 이미지는 기존보다 덜 어둡게 처리
+## 디자인 결정사항
+
+- 홈 메인 이미지는 기존보다 밝게 처리
 - 홈 메인 동영상도 어둡지 않게 오버레이를 약하게 유지
-- 홈 중간 문구는 별도 카드/박스 없이 흰 배경 위 텍스트로 처리
-- 홈 중간 문구 폰트는 붓글씨 느낌
+- 카테고리 위 중간 문구는 사용하지 않음
 - 카드 UI는 과도하게 둥글지 않게 8px radius 기준
 - 카테고리 카드 이미지는 텍스트 가독성을 위해 약한 어두운 그라데이션만 유지
 - 전체 사이트는 여행 예약몰 느낌이 나도록 이미지 중심으로 구성
@@ -248,14 +239,13 @@ add column if not exists gallery_images text[] default '{}';
 ## 다음 작업 후보
 
 - 실제 운영 도메인에서 Vercel 배포 완료 여부 확인
-- 홈 중간 붓글씨 폰트가 실제 배포 환경에서 의도대로 로드되는지 확인
-- 모바일 홈 화면에서 히어로, 중간 문구, 카드 간격 재확인
+- 모바일 홈 화면에서 히어로와 카드 간격 재확인
 - 관리자 홈 설정에서 슬라이드 시간 저장 후 운영 DB에 정상 반영되는지 확인
 - 상품/예약 Supabase 데이터 정리
 - 카카오 로그인 운영 redirect URI 최종 확인
 - Vercel 환경변수 누락 여부 점검
 
-## 새 Codex 대화에서 시작할 때 요청 예시
+## 새 Codex 대화 시작 요청 예시
 
 ```text
 이 프로젝트는 다낭주민센터 예약몰입니다.

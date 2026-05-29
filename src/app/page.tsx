@@ -18,12 +18,6 @@ export default async function Home() {
       <main>
         <HomeHero settings={homeHeroSettings} />
 
-        {homeHeroSettings.middleText ? (
-          <section className="home-middle-copy">
-            <p>{homeHeroSettings.middleText}</p>
-          </section>
-        ) : null}
-
         <section className="category-links" aria-label="예약 카테고리">
           {categoryKeys.map((key) => {
             const item = categories[key];

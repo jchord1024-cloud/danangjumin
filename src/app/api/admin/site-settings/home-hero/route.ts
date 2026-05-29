@@ -17,7 +17,6 @@ export async function PUT(request: NextRequest) {
             type: item?.type === "video" ? "video" : "image",
           }))
         : [],
-      middleText: String(body.middleText || "").trim(),
       slideDurationMs: Number(body.slideDurationMs) || 2000,
     });
 
