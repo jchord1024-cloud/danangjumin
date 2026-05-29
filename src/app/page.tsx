@@ -7,6 +7,8 @@ import { categories } from "@/lib/products";
 
 const categoryKeys = ["villas", "golf", "guides", "taxi"] as const;
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const homeHeroSettings = await getHomeHeroSettings();
 

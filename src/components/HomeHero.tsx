@@ -22,12 +22,13 @@ export function HomeHero({ settings }: { settings: HomeHeroSettings }) {
 
   return (
     <section className="home-hero">
-      <div className="home-hero-media" aria-hidden="true">
+      <div
+        className="home-hero-media"
+        style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        aria-hidden="true"
+      >
         {mediaItems.map((item, index) => (
-          <div
-            key={`${item.url}-${index}`}
-            className={index === activeIndex ? "active" : ""}
-          >
+          <div key={`${item.url}-${index}`}>
             {item.type === "video" ? (
               <video src={item.url} autoPlay muted loop playsInline />
             ) : (
@@ -36,6 +37,19 @@ export function HomeHero({ settings }: { settings: HomeHeroSettings }) {
           </div>
         ))}
       </div>
+      {mediaItems.length > 1 ? (
+        <div className="home-hero-dots" aria-label="메인 슬라이드 위치">
+          {mediaItems.map((item, index) => (
+            <button
+              key={`${item.url}-dot-${index}`}
+              type="button"
+              className={index === activeIndex ? "active" : ""}
+              onClick={() => setActiveIndex(index)}
+              aria-label={`${index + 1}번 슬라이드 보기`}
+            />
+          ))}
+        </div>
+      ) : null}
       <div className="home-hero-shade" />
       <div className="hero-copy">
         <p>{settings.eyebrow}</p>
