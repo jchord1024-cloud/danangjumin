@@ -162,14 +162,15 @@ a {
   height: 100%;
   background-position: center;
   background-size: cover;
+  filter: brightness(1.12);
   object-fit: cover;
 }
 
 .home-hero-shade {
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(10, 18, 24, 0.52), rgba(10, 18, 24, 0.04)),
-    linear-gradient(180deg, rgba(10, 18, 24, 0.04), rgba(10, 18, 24, 0.34));
+    linear-gradient(90deg, rgba(10, 18, 24, 0.34), rgba(10, 18, 24, 0)),
+    linear-gradient(180deg, rgba(10, 18, 24, 0), rgba(10, 18, 24, 0.18));
 }
 
 .home-hero-controls {
