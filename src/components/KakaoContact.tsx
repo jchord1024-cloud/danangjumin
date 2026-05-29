@@ -1,6 +1,6 @@
 const kakaoChannelUrl =
   process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL ||
-  "https://open.kakao.com/o/sMvcmYwi";
+  "https://open.kakao.com/o/sP9ik6wi";
 
 export function KakaoContact() {
   return (
