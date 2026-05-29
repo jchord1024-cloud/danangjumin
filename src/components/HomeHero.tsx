@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { HomeHeroSettings } from "@/lib/site-settings";
 
@@ -83,10 +82,6 @@ export function HomeHero({ settings }: { settings: HomeHeroSettings }) {
         <p>{settings.eyebrow}</p>
         <h1>{settings.title}</h1>
         <span>{settings.description}</span>
-      </div>
-      <div className="hero-actions">
-        <Link href="/villas">상품 둘러보기</Link>
-        <Link href="/reservation">예약정보 확인</Link>
       </div>
     </section>
   );

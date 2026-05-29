@@ -70,7 +70,10 @@ function parseHomeHeroSettings(value: unknown): HomeHeroSettings {
     title: record.title || defaultHomeHeroSettings.title,
     description: record.description || defaultHomeHeroSettings.description,
     mediaItems: parseMediaItems(record),
-    middleText: record.middleText || defaultHomeHeroSettings.middleText,
+    middleText:
+      typeof record.middleText === "string"
+        ? record.middleText
+        : defaultHomeHeroSettings.middleText,
     slideDurationMs:
       Number.isFinite(slideDurationMs) && slideDurationMs >= 1000
         ? Math.min(slideDurationMs, 30000)
