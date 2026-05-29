@@ -72,7 +72,7 @@ function parseHomeHeroSettings(value: unknown): HomeHeroSettings {
 }
 
 export async function getHomeHeroSettings(): Promise<HomeHeroSettings> {
-  const supabase = getSupabaseServerClient();
+  const supabase = getSupabaseAdminClient() || getSupabaseServerClient();
 
   if (!supabase) {
     return defaultHomeHeroSettings;

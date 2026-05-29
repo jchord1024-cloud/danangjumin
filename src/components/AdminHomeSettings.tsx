@@ -98,7 +98,10 @@ export function AdminHomeSettings({
     const response = await fetch("/api/admin/site-settings/home-hero", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({
+        ...form,
+        mediaItems: parseMediaUrls(mediaText),
+      }),
     });
     const result = (await response.json()) as { ok: boolean; message?: string };
 
