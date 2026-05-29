@@ -153,6 +153,22 @@ export function AdminHomeSettings({
             />
           </label>
           <label>
+            슬라이드 전환 시간(초)
+            <input
+              type="number"
+              min="1"
+              max="30"
+              step="0.5"
+              value={(form.slideDurationMs || 2000) / 1000}
+              onChange={(event) =>
+                updateField(
+                  "slideDurationMs",
+                  Math.round(Number(event.target.value || 2) * 1000),
+                )
+              }
+            />
+          </label>
+          <label>
             메인 슬라이드 URL
             <textarea
               rows={6}

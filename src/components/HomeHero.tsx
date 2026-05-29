@@ -9,6 +9,7 @@ export function HomeHero({ settings }: { settings: HomeHeroSettings }) {
   const mediaItems = settings.mediaItems.length > 0 ? settings.mediaItems : [];
   const slideCount = mediaItems.length;
   const visibleIndex = slideCount > 0 ? activeIndex % slideCount : 0;
+  const slideDurationMs = Math.max(settings.slideDurationMs || 2000, 1000);
 
   useEffect(() => {
     if (slideCount < 2) {
@@ -17,10 +18,10 @@ export function HomeHero({ settings }: { settings: HomeHeroSettings }) {
 
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % slideCount);
-    }, 5600);
+    }, slideDurationMs);
 
     return () => window.clearInterval(timer);
-  }, [slideCount]);
+  }, [slideCount, slideDurationMs]);
 
   function showPreviousSlide() {
     setActiveIndex((current) => (current - 1 + slideCount) % slideCount);

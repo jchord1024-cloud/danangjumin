@@ -18,6 +18,7 @@ export async function PUT(request: NextRequest) {
           }))
         : [],
       middleText: String(body.middleText || "").trim(),
+      slideDurationMs: Number(body.slideDurationMs) || 2000,
     });
 
     return NextResponse.json({ ok: true });

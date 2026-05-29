@@ -6,6 +6,7 @@ export type HomeHeroSettings = {
   description: string;
   mediaItems: HomeHeroMediaItem[];
   middleText: string;
+  slideDurationMs: number;
 };
 
 export type HomeHeroMediaItem = {
@@ -27,6 +28,7 @@ export const defaultHomeHeroSettings: HomeHeroSettings = {
     },
   ],
   middleText: "다낭의 하루를 더 편하게, 현지 감각으로 예약하세요.",
+  slideDurationMs: 2000,
 };
 
 function parseMediaItems(record: Partial<HomeHeroSettings> & {
@@ -61,6 +63,7 @@ function parseMediaItems(record: Partial<HomeHeroSettings> & {
 function parseHomeHeroSettings(value: unknown): HomeHeroSettings {
   const data = value && typeof value === "object" ? value : {};
   const record = data as Partial<HomeHeroSettings>;
+  const slideDurationMs = Number(record.slideDurationMs);
 
   return {
     eyebrow: record.eyebrow || defaultHomeHeroSettings.eyebrow,
@@ -68,6 +71,10 @@ function parseHomeHeroSettings(value: unknown): HomeHeroSettings {
     description: record.description || defaultHomeHeroSettings.description,
     mediaItems: parseMediaItems(record),
     middleText: record.middleText || defaultHomeHeroSettings.middleText,
+    slideDurationMs:
+      Number.isFinite(slideDurationMs) && slideDurationMs >= 1000
+        ? Math.min(slideDurationMs, 30000)
+        : defaultHomeHeroSettings.slideDurationMs,
   };
 }
 

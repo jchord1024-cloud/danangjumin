@@ -30,7 +30,9 @@ export default async function Home() {
                 key={item.href}
                 href={item.href}
                 className="category-tile"
-                style={{ backgroundImage: `linear-gradient(180deg, rgba(9, 18, 25, .14), rgba(9, 18, 25, .78)), url(${item.image})` }}
+                style={{
+                  backgroundImage: `linear-gradient(180deg, rgba(9, 18, 25, .04), rgba(9, 18, 25, .56)), url(${item.image})`,
+                }}
               >
                 <p>{item.eyebrow}</p>
                 <h2>{item.label}</h2>
