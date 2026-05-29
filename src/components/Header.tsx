@@ -13,7 +13,7 @@ export function Header() {
   return (
     <header className="site-header">
       <Link href="/" className="brand" aria-label="홈으로 이동">
-        <span>Da Nang Local Desk</span>
+        <span>Joomin CCenter</span>
         <strong>다낭주민쎈타</strong>
       </Link>
       <nav className="main-nav" aria-label="주요 메뉴">

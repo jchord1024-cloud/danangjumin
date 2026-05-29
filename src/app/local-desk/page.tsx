@@ -25,8 +25,8 @@ export default async function LocalDeskPage() {
     <main className="admin-page">
       <header className="admin-header">
         <div>
-          <p>Da Nang Local Desk</p>
-          <h1>다낭주민쎈타 관리 데스크</h1>
+          <p>Joomin CCenter</p>
+          <h1>다낭주민쎈타 관리 센터</h1>
         </div>
         <Link href="/">홈으로</Link>
       </header>

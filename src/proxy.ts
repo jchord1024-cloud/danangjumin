@@ -30,7 +30,7 @@ export function proxy(request: NextRequest) {
   return new NextResponse("Authentication required", {
     status: 401,
     headers: {
-      "WWW-Authenticate": 'Basic realm="Local Desk"',
+      "WWW-Authenticate": 'Basic realm="Joomin CCenter"',
     },
   });
 }
