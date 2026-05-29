@@ -12,6 +12,7 @@ type FormState = {
   price: string;
   summary: string;
   image_url: string;
+  gallery_images: string;
   detail: string;
   highlights: string;
   includes: string;
@@ -28,6 +29,7 @@ const emptyForm: FormState = {
   price: "",
   summary: "",
   image_url: "",
+  gallery_images: "",
   detail: "",
   highlights: "",
   includes: "",
@@ -53,6 +55,7 @@ function productToForm(product: ProductRow): FormState {
     price: product.price || "",
     summary: product.summary || "",
     image_url: product.image_url || "",
+    gallery_images: (product.gallery_images || []).join("\n"),
     detail: product.detail || "",
     highlights: (product.highlights || []).join("\n"),
     includes: (product.includes || []).join("\n"),
@@ -60,6 +63,13 @@ function productToForm(product: ProductRow): FormState {
     is_visible: product.is_visible,
     sort_order: product.sort_order,
   };
+}
+
+function parseGalleryUrls(value: string) {
+  return value
+    .split("\n")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 export function AdminProducts({ initialProducts }: { initialProducts: ProductRow[] }) {
@@ -160,6 +170,49 @@ export function AdminProducts({ initialProducts }: { initialProducts: ProductRow
 
     updateField("image_url", result.url);
     setMessage("이미지가 업로드되었습니다.");
+  }
+
+  async function uploadGalleryImages(files: FileList | null) {
+    if (!files?.length) {
+      return;
+    }
+
+    setIsUploading(true);
+    setMessage("");
+
+    const uploadedUrls: string[] = [];
+
+    for (const file of Array.from(files)) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json()) as {
+        ok: boolean;
+        url?: string;
+        message?: string;
+      };
+
+      if (!response.ok || !result.ok || !result.url) {
+        setIsUploading(false);
+        setMessage(result.message || "갤러리 이미지 업로드에 실패했습니다.");
+        return;
+      }
+
+      uploadedUrls.push(result.url);
+    }
+
+    setIsUploading(false);
+    setForm((current) => ({
+      ...current,
+      gallery_images: [...parseGalleryUrls(current.gallery_images), ...uploadedUrls].join(
+        "\n",
+      ),
+    }));
+    setMessage(`${uploadedUrls.length}장 업로드되었습니다.`);
   }
 
   return (
@@ -272,6 +325,38 @@ export function AdminProducts({ initialProducts }: { initialProducts: ProductRow
               style={{ backgroundImage: `url(${form.image_url})` }}
               aria-label="대표 이미지 미리보기"
             />
+          ) : null}
+          <label>
+            상세 갤러리 이미지 URL
+            <textarea
+              rows={5}
+              value={form.gallery_images}
+              onChange={(event) => updateField("gallery_images", event.target.value)}
+              placeholder={"한 줄에 이미지 URL 하나씩 입력"}
+            />
+          </label>
+          <label>
+            상세 갤러리 이미지 업로드
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(event) => {
+                void uploadGalleryImages(event.target.files);
+                event.target.value = "";
+              }}
+            />
+          </label>
+          {parseGalleryUrls(form.gallery_images).length > 0 ? (
+            <div className="admin-gallery-preview" aria-label="상세 갤러리 미리보기">
+              {parseGalleryUrls(form.gallery_images).map((url) => (
+                <div
+                  key={url}
+                  style={{ backgroundImage: `url(${url})` }}
+                  aria-label="갤러리 이미지"
+                />
+              ))}
+            </div>
           ) : null}
           <label>
             요약

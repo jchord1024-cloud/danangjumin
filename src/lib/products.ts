@@ -8,6 +8,7 @@ export type Product = {
   price: string;
   summary: string;
   image: string;
+  galleryImages?: string[];
   highlights: string[];
   includes: string[];
   notice: string;

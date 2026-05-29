@@ -9,6 +9,7 @@ export type ProductRow = {
   price: string | null;
   summary: string | null;
   image_url: string | null;
+  gallery_images: string[] | null;
   detail: string | null;
   highlights: string[] | null;
   includes: string[] | null;
@@ -27,6 +28,7 @@ export type ProductPayload = {
   price: string | null;
   summary: string | null;
   image_url: string | null;
+  gallery_images: string[];
   detail: string | null;
   highlights: string[];
   includes: string[];

@@ -16,6 +16,7 @@ function mapProduct(row: ProductRow): Product {
     price: row.price || "",
     summary: row.summary || "",
     image: row.image_url || "",
+    galleryImages: row.gallery_images || [],
     highlights: row.highlights || [],
     includes: row.includes || [],
     notice: row.notice || "",

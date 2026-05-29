@@ -55,6 +55,7 @@ export function parseProductPayload(body: Record<string, unknown>): ProductPaylo
     price: String(body.price || "").trim() || null,
     summary: String(body.summary || "").trim() || null,
     image_url: String(body.image_url || "").trim() || null,
+    gallery_images: parseList(body.gallery_images),
     detail: String(body.detail || "").trim() || null,
     highlights: parseList(body.highlights),
     includes: parseList(body.includes),

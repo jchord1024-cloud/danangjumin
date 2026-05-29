@@ -23,6 +23,10 @@ export default async function ProductDetailPage({
 
   const category = categories[product.category];
   const [primaryHighlight, ...secondaryHighlights] = product.highlights;
+  const galleryImages =
+    product.galleryImages && product.galleryImages.length > 0
+      ? product.galleryImages
+      : [product.image].filter(Boolean);
 
   return (
     <>
@@ -88,6 +92,26 @@ export default async function ProductDetailPage({
             </p>
           </div>
         </section>
+
+        {galleryImages.length > 0 ? (
+          <section className="detail-gallery-section section">
+            <div className="section-head">
+              <p>Gallery</p>
+              <h2>공간을 미리 확인하세요</h2>
+              <span>대표 사진과 추가 갤러리로 분위기와 공간감을 살펴볼 수 있습니다.</span>
+            </div>
+            <div className="detail-gallery-grid">
+              {galleryImages.map((image, index) => (
+                <div
+                  key={`${image}-${index}`}
+                  className={index === 0 ? "wide" : ""}
+                  style={{ backgroundImage: `url(${image})` }}
+                  aria-label={`${product.title} 갤러리 ${index + 1}`}
+                />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="detail-feature-section">
           <div className="section detail-feature-inner">
