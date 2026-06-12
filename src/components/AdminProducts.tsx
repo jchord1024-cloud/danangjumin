@@ -208,6 +208,7 @@ export function AdminProducts({ initialProducts }: { initialProducts: ProductRow
     setIsUploading(false);
     setForm((current) => ({
       ...current,
+      image_url: current.image_url || uploadedUrls[0] || "",
       gallery_images: [...parseGalleryUrls(current.gallery_images), ...uploadedUrls].join(
         "\n",
       ),

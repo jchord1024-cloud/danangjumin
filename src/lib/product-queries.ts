@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import {
   getProduct as getStaticProduct,
   getProductsByCategory as getStaticProductsByCategory,
@@ -8,6 +9,8 @@ import {
 import { getSupabaseServerClient, type ProductRow } from "@/lib/supabase";
 
 function mapProduct(row: ProductRow): Product {
+  const galleryImages = row.gallery_images || [];
+
   return {
     slug: row.slug,
     category: row.category,
@@ -15,8 +18,8 @@ function mapProduct(row: ProductRow): Product {
     location: row.location || "",
     price: row.price || "",
     summary: row.summary || "",
-    image: row.image_url || "",
-    galleryImages: row.gallery_images || [],
+    image: row.image_url || galleryImages[0] || "",
+    galleryImages,
     highlights: row.highlights || [],
     includes: row.includes || [],
     notice: row.notice || "",
@@ -27,6 +30,7 @@ function mapProduct(row: ProductRow): Product {
 export async function getProductsByCategory(
   category: ProductCategory,
 ): Promise<Product[]> {
+  noStore();
   const supabase = getSupabaseServerClient();
 
   if (!supabase) {
@@ -50,6 +54,7 @@ export async function getProductsByCategory(
 }
 
 export async function getProduct(slug: string): Promise<Product | undefined> {
+  noStore();
   const supabase = getSupabaseServerClient();
 
   if (!supabase) {
@@ -72,6 +77,7 @@ export async function getProduct(slug: string): Promise<Product | undefined> {
 }
 
 export async function getProductSlugs(): Promise<Array<{ slug: string }>> {
+  noStore();
   const supabase = getSupabaseServerClient();
 
   if (!supabase) {

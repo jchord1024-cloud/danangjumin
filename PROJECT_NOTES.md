@@ -47,6 +47,8 @@ npm.cmd run build
 - 홈 카테고리 4개 카드 구현 완료: 풀빌라, 골프, 가이드, 택시
 - 상품 목록/상세 페이지 구현 완료
 - 상품 목록/상세 페이지는 관리자 수정사항이 바로 보이도록 동적 렌더링 사용
+- 상품 조회 함수는 `noStore()`를 사용해 Supabase 상품 데이터를 매번 최신으로 조회
+- 상품 대표 이미지는 `image_url` 우선, 없으면 첫 번째 `gallery_images`를 fallback으로 사용
 - 상품 상세 페이지는 대표 이미지, 상세 갤러리, 요약 정보, 안내 섹션 포함
 - 상품 데이터는 Supabase DB와 연결 가능하며 fallback 데이터는 `src/lib/products.ts`에 있음
 - 상품 이미지 업로드는 Supabase Storage `product-images` public bucket 사용
@@ -63,6 +65,9 @@ npm.cmd run build
   - `/products/[slug]`에서 `generateStaticParams` 제거
   - `/products/[slug]`, `/villas`, `/golf`, `/guides`, `/taxi`에 `dynamic = "force-dynamic"` 적용
   - 관리자에서 상품 상세 내용을 수정해도 이전 SSG 페이지가 계속 보이던 문제 해결
+  - 상품 조회 함수에 `noStore()` 추가
+  - 대표 이미지가 비어 있으면 첫 갤러리 이미지를 대표 이미지로 사용
+  - 관리자에서 갤러리 이미지를 업로드할 때 대표 이미지가 비어 있으면 첫 업로드 이미지를 대표 이미지로 자동 지정
 
 - `e2917dc Allow empty home message`
   - 관리자 홈 설정 중간 문구 빈 값 처리 시도

@@ -6,6 +6,7 @@ import { getProduct } from "@/lib/product-queries";
 import { categories, type Product } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ProductDetailPage({
   params,
