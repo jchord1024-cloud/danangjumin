@@ -2,12 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { KakaoContact } from "@/components/KakaoContact";
-import { getProduct, getProductSlugs } from "@/lib/product-queries";
+import { getProduct } from "@/lib/product-queries";
 import { categories, type Product } from "@/lib/products";
 
-export async function generateStaticParams() {
-  return getProductSlugs();
-}
+export const dynamic = "force-dynamic";
 
 export default async function ProductDetailPage({
   params,

@@ -46,6 +46,7 @@ npm.cmd run build
   - 로컬 확인 기준 `.home-middle-copy` 있음
 - 홈 카테고리 4개 카드 구현 완료: 풀빌라, 골프, 가이드, 택시
 - 상품 목록/상세 페이지 구현 완료
+- 상품 목록/상세 페이지는 관리자 수정사항이 바로 보이도록 동적 렌더링 사용
 - 상품 상세 페이지는 대표 이미지, 상세 갤러리, 요약 정보, 안내 섹션 포함
 - 상품 데이터는 Supabase DB와 연결 가능하며 fallback 데이터는 `src/lib/products.ts`에 있음
 - 상품 이미지 업로드는 Supabase Storage `product-images` public bucket 사용
@@ -57,6 +58,11 @@ npm.cmd run build
 - 카카오 로그인 API route 및 세션 처리 코드 있음
 
 ## 최근 작업 내역
+
+- 상품 상세 수정 반영 문제 수정
+  - `/products/[slug]`에서 `generateStaticParams` 제거
+  - `/products/[slug]`, `/villas`, `/golf`, `/guides`, `/taxi`에 `dynamic = "force-dynamic"` 적용
+  - 관리자에서 상품 상세 내용을 수정해도 이전 SSG 페이지가 계속 보이던 문제 해결
 
 - `e2917dc Allow empty home message`
   - 관리자 홈 설정 중간 문구 빈 값 처리 시도
