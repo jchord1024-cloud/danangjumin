@@ -371,39 +371,12 @@ export function AdminProducts({ initialProducts }: { initialProducts: ProductRow
             </div>
           ) : null}
           <label>
-            상세 설명
+            핵심 정보
             <textarea
-              rows={4}
-              value={form.detail}
-              onChange={(event) => updateField("detail", event.target.value)}
-            />
-          </label>
-          <div className="admin-two-col">
-            <label>
-              핵심 정보
-              <textarea
-                rows={5}
-                value={form.highlights}
-                onChange={(event) => updateField("highlights", event.target.value)}
-                placeholder={"한 줄에 하나씩 입력"}
-              />
-            </label>
-            <label>
-              포함 및 안내
-              <textarea
-                rows={5}
-                value={form.includes}
-                onChange={(event) => updateField("includes", event.target.value)}
-                placeholder={"한 줄에 하나씩 입력"}
-              />
-            </label>
-          </div>
-          <label>
-            예약 전 확인
-            <textarea
-              rows={3}
-              value={form.notice}
-              onChange={(event) => updateField("notice", event.target.value)}
+              rows={5}
+              value={form.highlights}
+              onChange={(event) => updateField("highlights", event.target.value)}
+              placeholder={"한 줄에 하나씩 입력"}
             />
           </label>
           <label className="admin-check">
