@@ -216,15 +216,22 @@ export default async function ProductDetailPage({
           </div>
           <div className="detail-soft-list">
             <article className="detail-soft-card">
+              <span className="detail-icon">💬</span>
+              <div>
+                <strong>{benefitItems[0]}</strong>
+                <p>예약 확정 전 필요한 내용을 카카오톡으로 다시 안내드립니다.</p>
+              </div>
+            </article>
+            <article className="detail-soft-card">
               <span className="detail-icon">📌</span>
               <div>
                 <strong>예약 가능 여부 확인</strong>
                 <p>{product.notice}</p>
               </div>
             </article>
-            {benefitItems.map((item, index) => (
+            {benefitItems.slice(1).map((item, index) => (
               <article key={item} className="detail-soft-card">
-                <span className="detail-icon">{["💬", "🧭", "🎁"][index]}</span>
+                <span className="detail-icon">{["🧭", "🎁"][index]}</span>
                 <div>
                   <strong>{item}</strong>
                   <p>예약 확정 전 필요한 내용을 카카오톡으로 다시 안내드립니다.</p>

@@ -778,14 +778,18 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 72px;
   width: 72px;
   height: 72px;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: #2f6bf2;
   color: var(--white);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 28px;
   font-weight: 800;
+  line-height: 1;
+  text-align: center;
 }
 
 .detail-check-list div {
@@ -1675,8 +1679,10 @@ a {
 
   .detail-icon,
   .detail-step-list article > span {
+    flex-basis: 56px;
     width: 56px;
     height: 56px;
+    min-width: 56px;
     font-size: 24px;
   }
 
