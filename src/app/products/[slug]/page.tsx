@@ -44,12 +44,6 @@ export default async function ProductDetailPage({
     },
   ];
   const highlightItems = product.highlights.slice(0, 3);
-  const includeItems = product.includes;
-  const benefitItems = [
-    "카카오톡 빠른 상담",
-    "일정과 인원에 맞춘 현지 안내",
-    "예약 확정 후 정보 페이지 제공",
-  ];
 
   return (
     <>
@@ -93,12 +87,6 @@ export default async function ProductDetailPage({
             <span>Location</span>
             <strong>{product.location}</strong>
           </div>
-          {product.highlights.map((item) => (
-            <div key={item}>
-              <span>Point</span>
-              <strong>{item}</strong>
-            </div>
-          ))}
         </section>
 
 
@@ -142,22 +130,6 @@ export default async function ProductDetailPage({
 
         <section className="detail-card-section">
           <div className="detail-card-head">
-            <p>Features</p>
-            <h2>포함 및 안내</h2>
-            <span>예약 전 확인하면 좋은 핵심 항목입니다.</span>
-          </div>
-          <div className="detail-check-list">
-            {includeItems.map((item) => (
-              <div key={item}>
-                <span>✅</span>
-                <strong>{item}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="detail-card-section">
-          <div className="detail-card-head">
             <p>Reservation Guide</p>
             <h2>예약 방법 안내</h2>
             <span>아래 순서대로 진행해주시면 빠르게 예약을 도와드립니다.</span>
@@ -175,73 +147,36 @@ export default async function ProductDetailPage({
           </div>
         </section>
 
-        <section className="detail-guide section">
-          <div className="detail-guide-image" style={{ backgroundImage: `url(${product.image})` }} />
-          <div className="detail-guide-copy">
-            <p>Booking Guide</p>
-            <h2>문의부터 확정까지 편하게 안내합니다.</h2>
-            <div className="detail-guide-list">
-              <div>
-                <span>01</span>
-                <strong>희망 일정 전달</strong>
-                <p>날짜, 인원, 숙소 위치나 원하는 조건을 카카오톡으로 보내주세요.</p>
-              </div>
-              <div>
-                <span>02</span>
-                <strong>가능 여부 확인</strong>
-                <p>현지 상황과 예약 가능 여부를 확인해 가장 알맞은 옵션을 안내합니다.</p>
-              </div>
-              <div>
-                <span>03</span>
-                <strong>예약정보 확인</strong>
-                <p>확정된 예약은 예약정보 페이지에서 이름과 연락처로 조회할 수 있습니다.</p>
-              </div>
-            </div>
-            <a
-              className="kakao-cta"
-              href={process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL || "https://pf.kakao.com/"}
-              target="_blank"
-              rel="noreferrer"
-            >
-              카카오톡으로 문의
-            </a>
-          </div>
-        </section>
-
         <section className="detail-card-section">
           <div className="detail-card-head">
-            <p>Notice</p>
-            <h2>예약 전 꼭 확인해주세요</h2>
-            <span>보다 편하고 안전한 이용을 위해 아래 내용을 확인해주세요.</span>
+            <p>Cancellation Policy</p>
+            <h2>환불 안내</h2>
+            <span>예약 취소 시점에 따라 아래 기준으로 환불이 진행됩니다.</span>
           </div>
-          <div className="detail-soft-list">
-            <article className="detail-soft-card">
-              <span className="detail-icon">💬</span>
-              <div>
-                <strong>{benefitItems[0]}</strong>
-                <p>카카오톡으로 문의주시면 날짜와 인원에 맞춰 예약 가능 여부부터 빠르게 도와드립니다.</p>
-              </div>
-            </article>
-            <article className="detail-soft-card">
-              <span className="detail-icon">📌</span>
-              <div>
-                <strong>예약 가능 여부 확인</strong>
-                <p>{product.notice}</p>
-              </div>
-            </article>
-            {benefitItems.slice(1).map((item, index) => (
-              <article key={item} className="detail-soft-card">
-                <span className="detail-icon">{["🧭", "🎁"][index]}</span>
-                <div>
-                  <strong>{item}</strong>
-                  <p>
-                    {index === 0
-                      ? "일정, 이동, 인원 구성에 맞춰 현지에서 이용하기 편한 동선으로 안내드립니다."
-                      : "예약 확정 후에는 예약정보 페이지에서 예약자명과 연락처로 내용을 다시 확인할 수 있습니다."}
-                  </p>
-                </div>
-              </article>
-            ))}
+          <div className="refund-policy-card">
+            <div className="refund-policy-row refund-policy-head">
+              <strong>예약 취소 요청</strong>
+              <strong>환불 금액</strong>
+            </div>
+            <div className="refund-policy-row">
+              <span>체크인 기준 30일 전</span>
+              <strong>100% 환불</strong>
+            </div>
+            <div className="refund-policy-row">
+              <span>15일 ~ 29일 전</span>
+              <strong>50% 환불</strong>
+            </div>
+            <div className="refund-policy-row">
+              <span>15일 이내</span>
+              <strong>환불 불가</strong>
+            </div>
+          </div>
+          <div className="refund-policy-note">
+            <strong>꼭 확인해주세요</strong>
+            <p>
+              환불 기준은 체크인 날짜를 기준으로 계산됩니다. 예약 변경 및 취소는
+              상담 채널을 통해 접수된 시점을 기준으로 처리됩니다.
+            </p>
           </div>
         </section>
       </main>
