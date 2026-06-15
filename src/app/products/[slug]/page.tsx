@@ -86,8 +86,10 @@ export default async function ProductDetailPage({
         <section className="detail-summary-band" aria-label="상품 핵심 정보">
           <div>
             <span>Location</span>
-            <strong>{product.location}</strong>
-            {product.address ? <em>{product.address}</em> : null}
+            <p className="detail-location-line">
+              <strong>{product.location}</strong>
+              {product.address ? <em>{product.address}</em> : null}
+            </p>
           </div>
         </section>
 

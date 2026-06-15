@@ -596,6 +596,13 @@ a {
   text-transform: uppercase;
 }
 
+.detail-location-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .detail-summary-band strong {
   color: var(--ink);
   font-size: 18px;
@@ -603,10 +610,20 @@ a {
 }
 
 .detail-summary-band em {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--muted);
   font-size: 15px;
   font-style: normal;
   line-height: 1.55;
+}
+
+.detail-summary-band em::before {
+  content: "";
+  width: 1px;
+  height: 14px;
+  background: var(--line);
 }
 
 .detail-story {
