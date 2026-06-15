@@ -657,6 +657,14 @@ a {
   padding-top: 0;
 }
 
+.detail-gallery-section .section-head p {
+  color: var(--ink);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
 .detail-gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

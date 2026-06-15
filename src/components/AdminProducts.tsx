@@ -360,14 +360,6 @@ export function AdminProducts({ initialProducts }: { initialProducts: ProductRow
             </div>
           ) : null}
           <label>
-            요약
-            <textarea
-              rows={2}
-              value={form.summary}
-              onChange={(event) => updateField("summary", event.target.value)}
-            />
-          </label>
-          <label>
             상세 설명
             <textarea
               rows={4}

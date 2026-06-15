@@ -21,19 +21,18 @@ export default async function ProductDetailPage({
   }
 
   const category = categories[product.category];
-  const [primaryHighlight] = product.highlights;
   const galleryImages =
     product.galleryImages && product.galleryImages.length > 0
       ? product.galleryImages
       : [product.image].filter(Boolean);
   const bookingSteps = [
     {
-      title: "예약 날짜 확인",
-      description: "원하시는 이용 날짜와 인원 가능 여부를 먼저 확인해주세요.",
-    },
-    {
       title: "카카오톡 상담",
       description: "인원, 일정, 옵션 서비스를 알려주시면 맞춤형으로 안내드립니다.",
+    },
+    {
+      title: "예약 날짜 확인",
+      description: "원하시는 이용 날짜와 인원 가능 여부를 먼저 확인해주세요.",
     },
     {
       title: "최종 정보 확정",
@@ -44,7 +43,8 @@ export default async function ProductDetailPage({
       description: "확정된 예약은 예약정보 페이지에서 예약자명과 연락처로 확인할 수 있습니다.",
     },
   ];
-  const featureItems = [...product.highlights, ...product.includes].slice(0, 8);
+  const highlightItems = product.highlights.slice(0, 3);
+  const includeItems = product.includes;
   const benefitItems = [
     "카카오톡 빠른 상담",
     "일정과 인원에 맞춘 현지 안내",
@@ -101,27 +101,11 @@ export default async function ProductDetailPage({
           ))}
         </section>
 
-        <section className="detail-story section">
-          <div className="detail-story-copy">
-            <p>{category.label} Selection</p>
-            <h2>{primaryHighlight || product.title}</h2>
-            <span>{product.detail}</span>
-          </div>
-          <div className="detail-story-panel">
-            <strong>{product.title}</strong>
-            <p>
-              다낭주민쎈타가 일정, 이동, 상담 동선까지 함께 확인해 처음 예약하는
-              고객도 편하게 결정할 수 있도록 안내합니다.
-            </p>
-          </div>
-        </section>
 
         {galleryImages.length > 0 ? (
           <section className="detail-gallery-section section">
             <div className="section-head">
               <p>Gallery</p>
-              <h2>공간을 미리 확인하세요</h2>
-              <span>대표 사진과 추가 갤러리로 분위기와 공간감을 살펴볼 수 있습니다.</span>
             </div>
             <div className="detail-gallery-grid">
               {galleryImages.map((image, index) => (
@@ -143,7 +127,7 @@ export default async function ProductDetailPage({
             <span>{product.summary}</span>
           </div>
           <div className="detail-soft-list">
-            {featureItems.slice(0, 3).map((item, index) => (
+            {highlightItems.map((item, index) => (
               <article key={item} className="detail-soft-card">
                 <span className="detail-icon">{["🌴", "🌊", "✨"][index] || "✓"}</span>
                 <div>
@@ -162,7 +146,7 @@ export default async function ProductDetailPage({
             <span>예약 전 확인하면 좋은 핵심 항목입니다.</span>
           </div>
           <div className="detail-check-list">
-            {featureItems.map((item) => (
+            {includeItems.map((item) => (
               <div key={item}>
                 <span>✅</span>
                 <strong>{item}</strong>
