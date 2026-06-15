@@ -106,6 +106,7 @@ export default async function ProductDetailPage({
           <section className="detail-gallery-section section">
             <div className="section-head">
               <p>Gallery</p>
+              <span>대표 사진과 추가 갤러리로 분위기와 공간감을 살펴볼 수 있습니다.</span>
             </div>
             <div className="detail-gallery-grid">
               {galleryImages.map((image, index) => (
