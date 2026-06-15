@@ -219,7 +219,7 @@ export default async function ProductDetailPage({
               <span className="detail-icon">💬</span>
               <div>
                 <strong>{benefitItems[0]}</strong>
-                <p>예약 확정 전 필요한 내용을 카카오톡으로 다시 안내드립니다.</p>
+                <p>카카오톡으로 문의주시면 날짜와 인원에 맞춰 예약 가능 여부부터 빠르게 도와드립니다.</p>
               </div>
             </article>
             <article className="detail-soft-card">
@@ -234,7 +234,11 @@ export default async function ProductDetailPage({
                 <span className="detail-icon">{["🧭", "🎁"][index]}</span>
                 <div>
                   <strong>{item}</strong>
-                  <p>예약 확정 전 필요한 내용을 카카오톡으로 다시 안내드립니다.</p>
+                  <p>
+                    {index === 0
+                      ? "일정, 이동, 인원 구성에 맞춰 현지에서 이용하기 편한 동선으로 안내드립니다."
+                      : "예약 확정 후에는 예약정보 페이지에서 예약자명과 연락처로 내용을 다시 확인할 수 있습니다."}
+                  </p>
                 </div>
               </article>
             ))}
