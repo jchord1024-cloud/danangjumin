@@ -6,6 +6,7 @@ export type ProductRow = {
   category: "villas" | "golf" | "guides" | "taxi";
   title: string;
   location: string | null;
+  address?: string | null;
   price: string | null;
   summary: string | null;
   image_url: string | null;
@@ -25,6 +26,7 @@ export type ProductPayload = {
   category: "villas" | "golf" | "guides" | "taxi";
   title: string;
   location: string | null;
+  address?: string | null;
   price: string | null;
   summary: string | null;
   image_url: string | null;

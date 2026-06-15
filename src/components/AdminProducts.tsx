@@ -9,6 +9,7 @@ type FormState = {
   category: ProductRow["category"];
   title: string;
   location: string;
+  address: string;
   price: string;
   summary: string;
   image_url: string;
@@ -26,6 +27,7 @@ const emptyForm: FormState = {
   category: "villas",
   title: "",
   location: "",
+  address: "",
   price: "",
   summary: "",
   image_url: "",
@@ -52,6 +54,7 @@ function productToForm(product: ProductRow): FormState {
     category: product.category,
     title: product.title,
     location: product.location || "",
+    address: product.address || "",
     price: product.price || "",
     summary: product.summary || "",
     image_url: product.image_url || "",
@@ -295,13 +298,21 @@ export function AdminProducts({ initialProducts }: { initialProducts: ProductRow
               />
             </label>
             <label>
-              가격
+              주소
               <input
-                value={form.price}
-                onChange={(event) => updateField("price", event.target.value)}
+                value={form.address}
+                onChange={(event) => updateField("address", event.target.value)}
+                placeholder="상세 주소 또는 안내 문구"
               />
             </label>
           </div>
+          <label>
+            가격
+            <input
+              value={form.price}
+              onChange={(event) => updateField("price", event.target.value)}
+            />
+          </label>
           <label>
             대표 이미지 URL
             <input

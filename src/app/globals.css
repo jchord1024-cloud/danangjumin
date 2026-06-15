@@ -602,6 +602,13 @@ a {
   line-height: 1.35;
 }
 
+.detail-summary-band em {
+  color: var(--muted);
+  font-size: 15px;
+  font-style: normal;
+  line-height: 1.55;
+}
+
 .detail-story {
   width: min(1180px, calc(100% - 40px));
   display: grid;
@@ -673,16 +680,76 @@ a {
   gap: 14px;
 }
 
-.detail-gallery-grid div {
+.detail-gallery-grid button {
+  border: 0;
   border-radius: 8px;
   background-position: center;
   background-size: cover;
   box-shadow: 0 16px 42px rgba(16, 24, 32, 0.1);
+  cursor: zoom-in;
 }
 
 .detail-gallery-grid .wide {
   grid-column: span 2;
   grid-row: span 2;
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 96px;
+  background: rgba(4, 10, 16, 0.86);
+}
+
+.gallery-lightbox img {
+  display: block;
+  max-width: min(100%, 1200px);
+  max-height: 84vh;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+}
+
+.gallery-lightbox-close,
+.gallery-lightbox-nav {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+}
+
+.gallery-lightbox-close {
+  top: 24px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  font-size: 30px;
+}
+
+.gallery-lightbox-nav {
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  transform: translateY(-50%);
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.gallery-lightbox-nav.prev {
+  left: 28px;
+}
+
+.gallery-lightbox-nav.next {
+  right: 28px;
 }
 
 .detail-card-section {
@@ -1799,6 +1866,29 @@ a {
 
   .refund-policy-note p {
     font-size: 16px;
+  }
+
+  .gallery-lightbox {
+    padding: 76px 18px;
+  }
+
+  .gallery-lightbox-close {
+    top: 18px;
+    right: 18px;
+  }
+
+  .gallery-lightbox-nav {
+    width: 46px;
+    height: 46px;
+    font-size: 28px;
+  }
+
+  .gallery-lightbox-nav.prev {
+    left: 12px;
+  }
+
+  .gallery-lightbox-nav.next {
+    right: 12px;
   }
 
   .detail-guide-image {

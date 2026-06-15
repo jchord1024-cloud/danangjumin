@@ -83,6 +83,15 @@ npm.cmd run build
   - 상세페이지에서 `포함 및 안내`, 큰 이미지형 `Booking Guide`, `Notice` 안내 섹션 제거
   - 상세페이지에 `Cancellation Policy / 환불 안내` 표 섹션 추가
   - 상단 핵심 정보 바는 `Location`만 표시
+  - 상세 갤러리 사진 클릭 시 확대 모달 표시, 확대 상태에서 좌우 버튼/키보드로 이전·다음 이동 가능
+  - 상품 관리자에 `주소` 입력 필드 추가, 상세페이지 Location 아래 주소 표시
+
+상품 주소 컬럼:
+
+```sql
+alter table products
+add column if not exists address text;
+```
 
 - `e2917dc Allow empty home message`
   - 관리자 홈 설정 중간 문구 빈 값 처리 시도

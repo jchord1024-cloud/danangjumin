@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { KakaoContact } from "@/components/KakaoContact";
+import { ProductGalleryLightbox } from "@/components/ProductGalleryLightbox";
 import { getProduct } from "@/lib/product-queries";
 import { categories, type Product } from "@/lib/products";
 
@@ -86,6 +87,7 @@ export default async function ProductDetailPage({
           <div>
             <span>Location</span>
             <strong>{product.location}</strong>
+            {product.address ? <em>{product.address}</em> : null}
           </div>
         </section>
 
@@ -96,16 +98,7 @@ export default async function ProductDetailPage({
               <p>Gallery</p>
               <span>대표 사진과 추가 갤러리로 분위기와 공간감을 살펴볼 수 있습니다.</span>
             </div>
-            <div className="detail-gallery-grid">
-              {galleryImages.map((image, index) => (
-                <div
-                  key={`${image}-${index}`}
-                  className={index === 0 ? "wide" : ""}
-                  style={{ backgroundImage: `url(${image})` }}
-                  aria-label={`${product.title} 갤러리 ${index + 1}`}
-                />
-              ))}
-            </div>
+            <ProductGalleryLightbox images={galleryImages} title={product.title} />
           </section>
         ) : null}
 

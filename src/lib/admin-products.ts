@@ -29,6 +29,15 @@ function normalizeSlug(value: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+function withoutAddress(payload: ProductPayload): ProductPayload {
+  const { address: _address, ...rest } = payload;
+  return rest;
+}
+
+function isMissingAddressColumn(message: string) {
+  return message.toLowerCase().includes("address");
+}
+
 export function parseProductPayload(body: Record<string, unknown>): ProductPayload {
   const title = String(body.title || "").trim();
   const rawSlug = String(body.slug || title).trim();
@@ -47,7 +56,7 @@ export function parseProductPayload(body: Record<string, unknown>): ProductPaylo
     throw new Error("카테고리를 선택하세요.");
   }
 
-  return {
+  const payload: ProductPayload = {
     slug,
     category: category as ProductPayload["category"],
     title,
@@ -63,6 +72,10 @@ export function parseProductPayload(body: Record<string, unknown>): ProductPaylo
     is_visible: Boolean(body.is_visible),
     sort_order: Number(body.sort_order || 0),
   };
+
+  payload.address = String(body.address || "").trim() || null;
+
+  return payload;
 }
 
 export async function listAdminProducts(): Promise<ProductRow[]> {
@@ -95,6 +108,16 @@ export async function createAdminProduct(payload: ProductPayload) {
   const { error } = await supabase.from("products").insert(payload);
 
   if (error) {
+    if (payload.address !== undefined && isMissingAddressColumn(error.message)) {
+      const { error: retryError } = await supabase
+        .from("products")
+        .insert(withoutAddress(payload));
+
+      if (!retryError) {
+        return;
+      }
+    }
+
     throw new Error(error.message);
   }
 }
@@ -112,6 +135,17 @@ export async function updateAdminProduct(id: string, payload: ProductPayload) {
     .eq("id", id);
 
   if (error) {
+    if (payload.address !== undefined && isMissingAddressColumn(error.message)) {
+      const { error: retryError } = await supabase
+        .from("products")
+        .update({ ...withoutAddress(payload), updated_at: new Date().toISOString() })
+        .eq("id", id);
+
+      if (!retryError) {
+        return;
+      }
+    }
+
     throw new Error(error.message);
   }
 }
